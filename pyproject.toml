@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "vanki"
+version = "0.1.0"
+description = ""
+authors = ["chun1 <arthur@chunai.dev>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aqt = {extras = ["at6"], version = "^2.1.65"}
+mypy = "^1.3.0"
+anki = "^2.1.65"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
