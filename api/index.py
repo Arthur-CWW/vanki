@@ -9,7 +9,7 @@
 #     nextauth_url: AnyHttpUrl
 #     model_config = S
 
-from pydantic import AnyHttpUrl, AnyUrl, Field
+from pydantic import AnyHttpUrl, AnyUrl, BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -24,24 +24,31 @@ class Settings(BaseSettings):
 
 
 
-from litestar import Litestar, get
-#
+from litestar import Litestar, get, post, put, delete
 
-# @app.get("/api/python")
-# def hello_world():
-#     return {"message": "Hello World"}
 
 @get("/")
 async def index() -> str:
     settings = Settings() # type: ignore
 
-    print(settings.model_config)
+    print(settings.database_url, settings.nextauth_url, settings.model_config)
     return settings.model_dump_json( )
 
+# from dataclasses import dataclass
 
-@get("/books/{book_id:int}")
-async def get_book(book_id: int) -> dict[str, int]:
-    return {"book_id": book_id}
+class Card(BaseModel):
+    id: int
+    name: str
+    description: str
 
 
-app = Litestar([index, get_book])
+
+@post("/cards")
+def create_card(card: Card) -> Card:
+    print(card)
+    return card
+
+@get("/cards/{card}")
+def get_cards(numb: int) -> Card:
+    return Card(id=numb, name="Card", description="Card description")
+app = Litestar([index, create_card])
