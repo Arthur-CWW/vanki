@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:py": "pdm install && python3 -m uvicorn api.index:app --reload",
+    "dev:py": "pdm install && pdm run litestar --app=api.index:app run --debug --reload",
     "dev:web": "next dev",
     "dev": "concurrently \"npm run next-dev\" \"npm run fastapi-dev\"",
     "build": "next build",
