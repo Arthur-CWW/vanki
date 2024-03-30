@@ -9,15 +9,20 @@
 #     nextauth_url: AnyHttpUrl
 #     model_config = S
 
-from pydantic import AnyHttpUrl, Field
+from pydantic import AnyHttpUrl, AnyUrl, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
 class Settings(BaseSettings):
-    # nextauth_url: AnyHttpUrl
-    model_config = SettingsConfigDict(env_file='../.env', env_file_encoding='utf-8')
-    DATABASE_URL: Field(AnyHttpUrl, env='DATABASE_URL')
+    database_url: AnyUrl
+    nextauth_url: AnyHttpUrl
+    model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
+
+
 
 from litestar import Litestar, get
 #
@@ -28,11 +33,10 @@ from litestar import Litestar, get
 
 @get("/")
 async def index() -> str:
-    # return "Hello, world!"
-    settings = Settings()
+    settings = Settings() # type: ignore
+
     print(settings.model_config)
-    print(settings)
-    return settings.model_dump_json()
+    return settings.model_dump_json( )
 
 
 @get("/books/{book_id:int}")
