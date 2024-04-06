@@ -28,6 +28,7 @@ dependencies = [
     "uvicorn>=0.29.0",
     "litestar[standard]>=2.7.1",
     "pydantic-settings>=2.2.1",
+    "fastapi>=0.110.1",
 ]
 name = "vanki"
 version = "0.1.0"
