@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:py": "pdm install && pdm run litestar --app=api.index:app run --debug --reload",
+    "dev:py": "pdm install && pdm run litestar --app=api.index:app run --debug --reload --reload-dir=api",
     "dev:web": "next dev",
-    "dev": "concurrently \"npm run next-dev\" \"npm run fastapi-dev\"",
+    "dev": "concurrently \"npm run dev:web \" \"npm run dev:py\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
